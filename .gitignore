@@ -1,0 +1,6 @@
+/src/shared_values.json
+/src/models/
+/src/input/
+/src/output/
+/src/js_modules/node_modules
+/**/__pycache__/

@@ -1,0 +1,20 @@
+{
+  "name": "tailwindcss",
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "dev": "npx tailwindcss -i main.css -o ../static/css/main.css --watch",
+    "build:boxiconsCSS":"cp -r ./node_modules/boxicons/css/boxicons.min.css ../static/css/boxicons.min.css",
+    "build:boxiconsFonts":"cp -r ./node_modules/boxicons/fonts ../static/fonts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.15",
+    "boxicons": "^2.1.4",
+    "daisyui": "^4.12.10",
+    "tailwindcss": "^3.4.12"
+  }
+}

@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+diffusers
+transformers
+xformers
+accelerate
+peft
+python-dotenv
+python-multipart
+aiofiles
+autoflake
+watchdog
+asyncio

@@ -1,0 +1,12 @@
+# fastapi
+# uvicorn[standard]
+diffusers[torch] 
+# transformers
+# xformers
+# peft
+# python-dotenv
+python-multipart
+# aiofiles
+# autoflake
+# watchdog
+# asyncio

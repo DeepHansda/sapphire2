@@ -1,0 +1,21 @@
+<div class="relative">
+  <div class="rounded-lg overflow-clip shadow-md">
+    <img
+      class="max-w-full h-fit"
+      alt=""
+      src="{{url_for('static',path='sampleImg/img1.jpg')}}"
+    />
+  </div>
+
+  <div class="absolute z-10 bottom-4 right-4 [&>button]: bg-transparent">
+    <div class="flex gap-2">
+      <button onclick="my_modal_3.showModal()">
+        <i class="bx bx-info-circle text-2xl"></i>
+      </button>
+      <button>
+        <i class="bx bx-download text-2xl"></i>
+      </button>
+    </div>
+  </div>
+  {% include "/partials/imgModal/imgModal.html" %}
+</div>
