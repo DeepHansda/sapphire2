@@ -2,7 +2,7 @@ fastapi
 uvicorn[standard]
 diffusers
 transformers
-xformers
+# xformers
 accelerate
 peft
 python-dotenv
@@ -11,3 +11,6 @@ aiofiles
 autoflake
 watchdog
 asyncio
+torch 
+torchvision 
+torchaudio

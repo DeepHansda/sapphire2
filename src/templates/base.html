@@ -16,6 +16,8 @@
     />
     <link rel="stylesheet" href="{{url_for('static',path='/css/boxicons.min.css')}}"
     />
+    <script src="{{ url_for('static', path='/js/htmx.min.js') }}"></script>
+
   </head>
 
   <body class="w-full h-screen">
@@ -90,9 +92,18 @@
       </div>
     </div>
 
+    <form 
+    hx-post="/text-to-img/generate"
+    hx-swap="innerHTML"
+    hx-target="#todo-card-list"
+    hx-encoding="multipart/form-data">
+    
+    
     <div class="flex">
       <div class="w-1/4">{% include "partials/test_bar.html" %}</div> <!-- Adjust width as needed -->
       <div class="flex-grow px-6">{% block content %} {% endblock content %}</div>
-  </div>
+    </div>
+      </form>
+    <div id="todo-card-list" ></div>
   </body>
 </html>

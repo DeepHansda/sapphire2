@@ -4,8 +4,9 @@
   "main": "tailwind.config.js",
   "scripts": {
     "dev": "npx tailwindcss -i main.css -o ../static/css/main.css --watch",
-    "build:boxiconsCSS":"cp -r ./node_modules/boxicons/css/boxicons.min.css ../static/css/boxicons.min.css",
-    "build:boxiconsFonts":"cp -r ./node_modules/boxicons/fonts ../static/fonts",
+    "build:boxiconsCSS": "cp -r ./node_modules/boxicons/css/boxicons.min.css ../static/css/boxicons.min.css",
+    "build:boxiconsFonts": "cp -r ./node_modules/boxicons/fonts ../static/fonts",
+    "build:htmx": "cp ./node_modules/htmx.org/dist/htmx.min.js ../static/js/htmx.min.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,6 +16,7 @@
     "@tailwindcss/typography": "^0.5.15",
     "boxicons": "^2.1.4",
     "daisyui": "^4.12.10",
+    "htmx.org": "^1.9.12",
     "tailwindcss": "^3.4.12"
   }
 }
