@@ -30,5 +30,5 @@ async def text_to_img(request:Request):
 @text2ImgRouter.post("/text-to-img/generate")
 async def generate_text_to_img(prompt:Text2Image_Type = Depends()):
         print(prompt)
-        # res = await t2ImgControllers.text2img(prompt)
-        return prompt
+        res = await t2ImgControllers.text2img(prompt)
+        return res
