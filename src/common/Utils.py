@@ -16,6 +16,8 @@ from diffusers.utils import make_image_grid
 from fastapi import HTTPException, status
 from PIL import Image
 from fastapi.templating import Jinja2Templates
+from fastapi.requests import Request
+
 
 templates=Jinja2Templates(directory="./templates")
 
@@ -213,5 +215,10 @@ class Utils:
                 byte_img_base64 = self.byte_img_to_base64(byte_img=byte_img,img_path=None)
                 return byte_img_base64
             return byte_img
+    
+
+    def render_imgs_gallery(request:Request):
+        return templates.TemplateResponse("partials/imageGallery.html",{"request":request,})
+
 
    
