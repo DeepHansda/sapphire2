@@ -17,7 +17,8 @@ class ImagesControllers:
     # @common_utils.exception_handler
     async def getImagesByType(self, imgs_type: str):
         # Define the file path
-        f_path = f"/kaggle/working/sapphire/backend/src/output/{imgs_type}"
+        print(cwd)
+        f_path = f"{cwd}/output/{imgs_type}"
 
         # Check if the directory exists
         if not os.path.exists(f_path):

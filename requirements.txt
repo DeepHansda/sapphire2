@@ -11,4 +11,6 @@ aiofiles
 autoflake
 watchdog
 asyncio
-torch torchvision torchaudio
+torch 
+torchvision 
+torchaudio
