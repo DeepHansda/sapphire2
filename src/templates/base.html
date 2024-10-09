@@ -53,7 +53,7 @@
     </div>
   </div>
 
-  <form hx-post="text-to-img/generate" hx-swap="innerHTML" hx-target="#todo-card-list"
+  <form hx-post="text-to-img/jinja/generate" hx-swap="outerHTML" hx-target="#todo-card-list"
     hx-encoding="multipart/form-data">
 
 
@@ -62,7 +62,7 @@
       <div class="flex-grow px-6">{% block content %} {% endblock content %}</div>
     </div>
   </form>
-  <div id="todo-card-list"></div>
+  <div id="todo-card-list">generate some images.</div>
 </body>
 
 </html>

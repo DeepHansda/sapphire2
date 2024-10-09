@@ -2,6 +2,7 @@ from fastapi import FastAPI,APIRouter
 from common.Utils import Utils
 from fastapi.responses import JSONResponse
 from fastapi import status
+from controllers.ImagesControllers import ImagesControllers
 
 import json
 

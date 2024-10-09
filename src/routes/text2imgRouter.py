@@ -1,4 +1,4 @@
-from fastapi import APIRouter,Request, Response,Depends
+from fastapi import APIRouter, Request, Response, Depends
 from controllers.Text2ImgControllers import Text2ImgControllers
 from common.Types import Text2Image_Type
 from contextlib import asynccontextmanager
@@ -22,13 +22,32 @@ default_form_data = {
     "batch_size": 1,
     "fixed_seed": False,
 }
+
+
 @text2ImgRouter.get("/text-to-img")
-async def text_to_img(request:Request):
-        return templates.TemplateResponse("/pages/text2img.html",{"request":request,"data":default_form_data})
+async def text_to_img(request: Request):
+    return templates.TemplateResponse(
+        "/pages/text2img.html", {"request": request, "data": default_form_data}
+    )
 
 
 @text2ImgRouter.post("/text-to-img/generate")
-async def generate_text_to_img(prompt:Text2Image_Type = Depends()):
-        print(prompt)
-        res = await t2ImgControllers.text2img(prompt)
-        return res
+async def generate_text_to_img(request: Request, prompt: Text2Image_Type = Depends()):
+    res = await t2ImgControllers.text2img(prompt)
+    return res
+
+
+@text2ImgRouter.post("/text-to-img/jinja/generate")
+async def generate_jinja_text_to_img(
+    request: Request, prompt: Text2Image_Type = Depends()
+):
+    res = await t2ImgControllers.text2img(prompt)
+    return templates.TemplateResponse(
+        "/partials/imageCard.html",
+        {
+            "request": request,
+            "isGeneratedResImg": True,
+            "response": res,
+            "data": default_form_data,
+        },
+    )
