@@ -14,6 +14,8 @@ from fastapi.responses import Response, StreamingResponse, JSONResponse
 from PIL import Image, ImageOps
 from common.const import IMG2IMG_TAG
 import json
+from datetime import date
+
 
 diff_utils = Utils()
 
@@ -100,6 +102,7 @@ class Img2ImgControllers:
             response_data = {
                 "enc_img_data": img_data_json,  # Assuming byte_img is converted to base64 string
                 "additional_data": additional_data_json,
+                "date": str(date.today()),
             }
 
             return JSONResponse(content=response_data, status_code=status.HTTP_200_OK)

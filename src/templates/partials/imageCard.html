@@ -1,21 +1,22 @@
-<div class="relative">
-  <div class="rounded-lg overflow-clip shadow-md">
+<div id="generated_result" class="w-full flex gap-x-6">
+  <div class="grow shadow-md overflow-clip	rounded-md">
     <img
       class="max-w-full h-fit"
       alt=""
-      src="{{url_for('static',path='sampleImg/img1.jpg')}}"
+      src="data:image/jpeg;base64,{{ resData.enc_img}}"
+      loading="lazy"
     />
   </div>
 
-  <div class="absolute z-10 bottom-4 right-4 [&>button]: bg-transparent">
-    <div class="flex gap-2">
-      <button onclick="my_modal_3.showModal()">
-        <i class="bx bx-info-circle text-2xl"></i>
-      </button>
-      <button>
-        <i class="bx bx-download text-2xl"></i>
-      </button>
+  <div class="w-9/12">
+
+    <div class="flex flex-wrap gap-4" >
+      {% for key,value in resData.additional_data.items() %}
+      {% include "/partials/imgModal/modalItem.html"%}
+      {% endfor %}
+    </div>
+    <div class="my-8">
+      <button class="btn btn-info">Download</button>
     </div>
   </div>
-  {% include "/partials/imgModal/imgModal.html" %}
 </div>
