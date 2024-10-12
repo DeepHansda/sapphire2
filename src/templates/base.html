@@ -11,8 +11,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="'stylesheet" href="{{url_for('static',path='/css/style.css')}}" />
   <link rel="stylesheet" href="{{url_for('static',path='/css/boxicons.min.css')}}" />
+  <script src="{{url_for('static',path='js/image_preview.js')}}"></script>
   <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
-
 </head>
 
 <body class="w-full h-screen">
@@ -28,6 +28,7 @@
       <div class="flex-grow px-6">{% block content %} {% endblock content %}</div>
     </div>
   </form>
+
 </body>
 
 </html>

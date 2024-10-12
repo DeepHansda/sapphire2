@@ -12,6 +12,7 @@ img2imgControllers = Img2ImgControllers()
 
 @img2imgRouter.get("/img-to-img")
 async def img_to_img(request: Request):
+    print(request.url.path)
     return templates.TemplateResponse(
         "/pages/img2img.html", {"request": request, "data": DEFAULT_FORM_DATA}
     )

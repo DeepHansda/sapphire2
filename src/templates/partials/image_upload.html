@@ -1,0 +1,12 @@
+<div class="flex justify-between items-center border border-white my-4 p-4 rounded-lg">
+    <label class="form-control w-full max-w-xs">
+        <div class="label">
+            <span class="label-text">Pick an Image</span>
+        </div>
+        <input  type="file" name="file" accept="image/*" id="file-input" onchange="previewImage(event)" class="file-input file-input-bordered file-input-md file-input-info max-w-xs" />
+    </label>
+    <div id="image-preview">
+        <h3>Preview:</h3>
+        <img id="preview-img" src="" alt="Image Preview">
+    </div>
+</div>
