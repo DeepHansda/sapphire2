@@ -1,0 +1,21 @@
+<div class="">
+  <div class="flex gap-4">
+    {% set models = all_models_list.all_models %} {% for key,value in
+    models.items() %}
+    <form hx-post="change-models-by-type/jinja" hx-trigger="change" hx-target="this" hx-swap="none" >
+    <label class="form-control w-full max-w-xs" >
+      <div class="label" id="label">
+        <span class="label-text capitalize">{{key}}</span>
+      </div>
+      {%set selected_name = key if key=="vae" else key[0:-1] %}
+      {%set selected_value = all_models_list.selected_models.get(selected_name) %}
+      <select class="select select-bordered" name={{key}}>
+        {%for model_name,model_path in value.items()%}
+        <option value={{model_name}} "{% if selected_value == model_path %} selected {% endif %}">{{model_name}}</option>
+        {%endfor%}
+      </select> 
+    </label>
+  </form>
+    {% endfor %}
+  </div>
+</div>

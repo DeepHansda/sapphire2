@@ -15,7 +15,7 @@ from fastapi.staticfiles import StaticFiles
 
 from fastapi.responses import JSONResponse
 
-from routes.extraRouter import extra_router
+from routes.modelsRoutes import models_router
 from routes.text2imgRouter import text2ImgRouter
 from routes.img2imgRouter import img2imgRouter
 from routes.imagesRoutes import images_routes
@@ -75,7 +75,7 @@ app.add_middleware(
 )
 
 
-app.include_router(extra_router)
+app.include_router(models_router)
 app.include_router(text2ImgRouter)
 app.include_router(img2imgRouter)
 app.include_router(images_routes)

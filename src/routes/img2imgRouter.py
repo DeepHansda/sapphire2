@@ -48,6 +48,6 @@ async def generate_jinja_img_to_img(
             "request": request,
             "isGeneratedResImg": True,
             "resData": content,
-            "data": default_form_data,
+            "data": DEFAULT_FORM_DATA,
         },
     )

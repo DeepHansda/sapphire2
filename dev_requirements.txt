@@ -10,3 +10,4 @@ python-multipart
 # autoflake
 # watchdog
 # asyncio
+djlint

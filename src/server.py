@@ -10,6 +10,8 @@ import time
 # def startUp_event():
 #     result = startUp()
 #     # print(result)
+main_shared_file_path = os.path.join(Folder_Paths.cwd, "shared_values.json")
+
 def startUp_event():
     try:
         loop = asyncio.get_running_loop()
@@ -37,9 +39,9 @@ def start_server():
         "main:app",
         "--reload",
         "--reload-exclude",
-        "sapphire/backend/src/output",
+        "sapphire2/src/output",
         "--reload-include",
-        "sapphire/backend/src/shared_values.json",
+        main_shared_file_path
     ]
     cb = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 

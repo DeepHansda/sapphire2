@@ -39,8 +39,8 @@ async def generate_jinja_text_to_img(
         "/partials/imageCard.html",
         {
             "request": request,
-            "isGeneratedResImg": True,
+            "isGeneratedResImg" : True,
             "resData": content,
-            "data": default_form_data,
+            "data": DEFAULT_FORM_DATA,
         },
     )
