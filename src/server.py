@@ -5,13 +5,20 @@ import common.Folder_Paths as Folder_Paths
 from common.startup import startUp
 import threading
 import time
+import os
 
 
 # def startUp_event():
 #     result = startUp()
 #     # print(result)
 main_shared_file_path = os.path.join(Folder_Paths.cwd, "shared_values.json")
-
+main_shared_file_path = os.path.abspath(os.path.expanduser(main_shared_file_path))
+print(main_shared_file_path)
+# if "\\" in  main_shared_file_path:
+#     print(main_shared_file_path)
+#     main_shared_file_path = os.path.abspath(os.path.expanduser(main_shared_file_path))
+#     print(main_shared_file_path)
+    
 def startUp_event():
     try:
         loop = asyncio.get_running_loop()
@@ -41,7 +48,7 @@ def start_server():
         "--reload-exclude",
         "sapphire2/src/output",
         "--reload-include",
-        main_shared_file_path
+        "sapphire2/src/shared_values.json"
     ]
     cb = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 

@@ -1,10 +1,12 @@
-{% extends "base.html" %}{% block content %}
+{% extends "layouts/main_layout.html" %}{% block content %}
 
 <div>
-  <div class="">
-    {% include "partials/promptBox.html"%}
+  <div class="flex">
+    <div>{% include "partials/sideBar.html" %}</div>
+    <div id="sub_content" class="flex-grow px-6">
+      <div class="">{% include "partials/promptBox.html"%}</div>
+      <div id="generated_result" class="my-6">generate some images.</div>
+    </div>
   </div>
-  <div id="generated_result" class="my-6">generate some images.</div>
-
 </div>
 {% endblock content %}

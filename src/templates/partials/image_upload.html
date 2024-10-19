@@ -12,18 +12,27 @@
         accept="image/*"
         id="file-input"
         onchange="previewImage(event)"
-        class="file-input file-input-bordered file-input-md file-input-info max-w-xs"
+        class="file-input file-input-success file-input-bordered file-input-sm max-w-xs"
       />
     </div>
   </label>
   <div id="image-preview">
     <h3>Preview:</h3>
 
-    <img
-      id="preview-img"
-      src=""
-      alt="Image Preview"
-      class="rounded-md overflow-clip"
-    />
+    <div class="relative shadow-black/5 shadow-none rounded-large z-50">
+      <img
+        id="preview-img"
+        src=""
+        alt="Image Preview"
+        class="relative z-10 shadow-black/5  shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large m-5 preview-img"
+      />
+
+      <img
+        id="preview-img"
+        class="absolute z-0 inset-0 w-full h-full object-cover filter blur-lg scale-105 saturate-150 opacity-30 translate-y-1 rounded-large preview-img"
+        src=""
+        alt=""
+      />
+    </div>
   </div>
 </div>

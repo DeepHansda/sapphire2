@@ -1,6 +1,6 @@
 function previewImage(event) {
     const fileInput = event.target;
-    const preview = document.getElementById('preview-img');
+    const preview = document.getElementsByClassName('preview-img');
     const previewContainer = document.getElementById('image-preview');
 
     // Display the selected image in the preview container
