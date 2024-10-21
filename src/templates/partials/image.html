@@ -1,0 +1,39 @@
+{%set img_data = sub_dir_images['img_data'] %} 
+{%set img_link =
+url_for('output',path=sub_dir_images['img_link']) %}
+
+<div class="max-w-full">
+  <div class="max-w-fit relative">
+    <div class="relative shadow-black/5 shadow">
+      <img
+        class="relative z-10 opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large m-5 rounded-lg max-w-full"
+        src="{{img_link}}"
+        alt=""
+        data-loaded="true"
+        loading="lazy"
+      />
+      <img
+        src="{{img_link}}"
+        class="absolute z-0 inset-0 w-full h-full object-cover filter blur-lg scale-105 saturate-150 opacity-30 translate-y-1 rounded-large max-w-full"
+        alt="NextUI Album Cover"
+        aria-hidden="true"
+        data-loaded="true"
+        loading="lazy"
+      />
+    </div>
+    <div
+      class="flex gap-x-3 absolute right-0 bottom-3 z-20 text-xl bg-darkGlass-100 rounded-xl px-2 backdrop-blur-lg border border-lightGlass-50"
+    >
+      <div>
+        <i
+          class="bx bx-info-circle cursor-pointer"
+          onclick="img_modal.showModal()"
+        ></i>
+      </div>
+      <div>
+        <i class="bx bx-download cursor-pointer"></i>
+      </div>
+    </div>
+  </div>
+  {%include "partials/imgModal/imgModal.html"%}
+</div>

@@ -1,5 +1,21 @@
-{% extends "layouts/main_layout.html" %}{% block content %}
-<div>
-    generated_result
+{% extends "base.html" %}{% block generated_images %}
+<div class="backdrop-blur-2xl">
+  <div>{%include "partials/tabBar.html" %}</div>
+  <div
+    class="flex gap-6 items-center justify-center my-3 mx-3 bg-darkGlass-100 backdrop-blur-xl max-w-72 p-3 rounded-lg border border-lightGlass-50 shadow-md gen-imgs-links"
+  >
+    {%set path = request.path_params["imgs_type"]%}
+    <a
+      href="text2img"
+      class="{%if path == 'text2img'%} gen-imgs-links-active {%endif%}"
+      >Text2Img</a
+    >
+    <a
+      href="img2img"
+      class="{%if path == 'img2img'%} gen-imgs-links-active {%endif%}"
+      >Img2Img</a
+    >
+  </div>
+  {% include "partials/imageGallery.html" %}
 </div>
-{% endblock content %}
+{% endblock generated_images %}

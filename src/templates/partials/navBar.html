@@ -1,13 +1,17 @@
 <div class="navbar">
-  <div class="navbar-start">
+  <div class="navbar-start gap-x-6">
     <div>
-      <a class="btn btn-ghost text-xl">Sapphire</a>
+      <a class="font-[Poppins] font-bold text-xl">Sapphire</a>
     </div>
     <div>
-      <div hx-get="get-all-models/jinja" hx-trigger="load" hx-target="#models-list" hx-swap="outerHTML">
-        <div id="models-list">show list of models</div>
+      <div
+        hx-get="get-all-models/jinja"
+        hx-trigger="load"
+        hx-target="#models-list"
+        hx-swap="outerHTML"
+      >
+        <div id="models-list"></div>
       </div>
     </div>
   </div>
-
 </div>

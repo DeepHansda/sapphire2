@@ -1,12 +1,12 @@
 <!-- You can open the modal using ID.showModal() method -->
 
-<dialog id="my_modal_3" class="modal">
+<dialog id="img_modal" class="modal bg-darkGlass-100 ">
   <div class="modal-box">
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
     <div class="flex flex-wrap gap-4">
-      {%for key,value in data.items()%}
+      {%for key,value in img_data.items()%}
       {% include "/partials/imgModal/modalItem.html"%}
       {% endfor %}
     </div>

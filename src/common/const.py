@@ -31,7 +31,8 @@ DEFAULT_FORM_DATA = {
     "batch_size": 1,
     "fixed_seed": False,
 }
-
-
-
-
+TABS_LINKS = {
+    "/text-to-img": "Text2Img",
+    "/img-to-img": "Img2Img",
+    "/generated-images/text2img": "Generated Images",
+}

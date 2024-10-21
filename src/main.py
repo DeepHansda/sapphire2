@@ -5,7 +5,7 @@ import common.Folder_Paths as Folder_Paths
 import logging, os, time
 from common.startup import startUp
 from fastapi.middleware.cors import CORSMiddleware
-from watchfiles import run_process,arun_process,awatch
+from watchfiles import run_process, arun_process, awatch
 from fastapi import FastAPI, status
 from fastapi.requests import Request
 from fastapi.responses import FileResponse, Response
@@ -21,8 +21,7 @@ from routes.img2imgRouter import img2imgRouter
 from routes.imagesRoutes import images_routes
 from fastapi.middleware.gzip import GZipMiddleware
 from common.Utils import templates
-
-
+from common.const import TABS_LINKS
 
 
 main_shared_file_path = os.path.join(Folder_Paths.cwd, "shared_values.json")
@@ -50,8 +49,10 @@ async def changeHandler():
 
 
 app = FastAPI()
-app.mount("/static",StaticFiles(directory="static"),name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/output", StaticFiles(directory="output"), name="output")
 app.add_middleware(GZipMiddleware)
+
 
 # main_app_lifespan = app.router.lifespan_context
 
@@ -74,7 +75,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 app.include_router(models_router)
 app.include_router(text2ImgRouter)
 app.include_router(img2imgRouter)
@@ -82,5 +82,7 @@ app.include_router(images_routes)
 
 
 @app.get("/")
-async def root(request:Request):
-    return templates.TemplateResponse("base.html",{"request":request})
+async def root(request: Request):
+    return templates.TemplateResponse(
+        "base.html", {"request": request, "tabs_links": TABS_LINKS}
+    )

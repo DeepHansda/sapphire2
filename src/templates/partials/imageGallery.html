@@ -1,7 +1,12 @@
 <div>
-    <div id="imgs_gallery_container" class="grid md:grid-cols-2 gap-6 lg:grid-cols-3 2xl:grid-cols-4">
-
-        <div>{% include "partials/imageCard.html"%}</div>
-        
+  <div class="p-4">
+    {%for item in imgs_list%}
+    <div class="divider text-sm font-bold">{{item["date"]}}</div>
+    <div class="grid md:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-4">
+      {%for sub_dir_images in item["sub_dir_images"]%}
+      <div>{% include "partials/image.html" %}</div>
+      {%endfor%}
     </div>
+    {%endfor%}
+  </div>
 </div>

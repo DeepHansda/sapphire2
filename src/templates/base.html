@@ -23,7 +23,7 @@
     <!-- <link rel="'stylesheet" href="{{url_for('static',path='/css/daisyui.css')}}" /> -->
      <script src="{{url_for('static',path='/js/image_preview.js')}}"></script>
     <link
-      rel="'stylesheet"
+      rel="stylesheet"
       href="{{url_for('static',path='/css/style.css')}}"
     />
     <link
@@ -34,8 +34,9 @@
   </head>
 
   <body
-    class="w-full h-screen bg-[url(https://cdn.jsdelivr.net/gh/DeepHansda/sapphire2@main/src/static/images/bg1.jpg)] bg-cover bg-fixed bg-center"
+    class="w-full h-screen bg-[url('{{url_for('static',path='/images/bg3.jpg')}}')] bg-cover bg-fixed bg-center"
   >
     {% block main_layout %}{% endblock main_layout %}
+    {%block generated_images%}{%endblock generated_images%}
   </body>
 </html>

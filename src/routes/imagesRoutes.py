@@ -5,6 +5,8 @@ from fastapi.requests import Request
 from fastapi import status
 from controllers.ImagesControllers import ImagesControllers
 from common.Utils import templates
+from common.const import TABS_LINKS
+
 
 import json
 
@@ -15,7 +17,13 @@ imagesControllers = ImagesControllers()
 
 @images_routes.get("/generated-images/{imgs_type}")
 async def get_images_container(request: Request, imgs_type: str):
-    return templates.TemplateResponse("pages/generatedImages.html",{"request":request})
+    res = await imagesControllers.getImagesByType(imgs_type, links=True)
+    # parsedData = json.loads(res.body.decode("utf-8")
+
+    return templates.TemplateResponse(
+        "pages/generatedImages.html",
+        {"request": request, "tabs_links": TABS_LINKS, "imgs_list": res},
+    )
 
 
 @images_routes.get("/get-images/{imgs_type}")

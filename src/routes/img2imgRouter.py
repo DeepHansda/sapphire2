@@ -3,7 +3,7 @@ from fastapi import APIRouter, Form, Depends
 from fastapi.requests import Request
 from common.Types import Image2Image_Type, Text2Image_Type
 from common.Utils import templates
-from common.const import DEFAULT_FORM_DATA
+from common.const import DEFAULT_FORM_DATA, TABS_LINKS
 import json
 
 img2imgRouter = APIRouter()
@@ -14,7 +14,8 @@ img2imgControllers = Img2ImgControllers()
 async def img_to_img(request: Request):
     print(request.url.path)
     return templates.TemplateResponse(
-        "/pages/img2img.html", {"request": request, "data": DEFAULT_FORM_DATA}
+        "/pages/img2img.html",
+        {"request": request, "data": DEFAULT_FORM_DATA, "tabs_links": TABS_LINKS},
     )
 
 

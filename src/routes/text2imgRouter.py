@@ -3,7 +3,8 @@ from controllers.Text2ImgControllers import Text2ImgControllers
 from common.Types import Text2Image_Type
 from contextlib import asynccontextmanager
 from common.Utils import templates
-from common.const import DEFAULT_FORM_DATA
+from common.const import DEFAULT_FORM_DATA, TABS_LINKS
+
 import json
 
 t2ImgControllers = Text2ImgControllers()
@@ -13,7 +14,8 @@ text2ImgRouter = APIRouter()
 @text2ImgRouter.get("/text-to-img")
 async def text_to_img(request: Request):
     return templates.TemplateResponse(
-        "/pages/text2img.html", {"request": request, "data": DEFAULT_FORM_DATA}
+        "/pages/text2img.html",
+        {"request": request, "data": DEFAULT_FORM_DATA, "tabs_links": TABS_LINKS},
     )
 
 
@@ -39,7 +41,7 @@ async def generate_jinja_text_to_img(
         "/partials/imageCard.html",
         {
             "request": request,
-            "isGeneratedResImg" : True,
+            "isGeneratedResImg": True,
             "resData": content,
             "data": DEFAULT_FORM_DATA,
         },

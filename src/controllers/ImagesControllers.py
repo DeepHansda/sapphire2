@@ -15,7 +15,7 @@ class ImagesControllers:
         pass
 
     # @common_utils.exception_handler
-    async def getImagesByType(self, imgs_type: str):
+    async def getImagesByType(self, imgs_type: str, links: bool):
         # Define the file path
         print(cwd)
         f_path = f"{cwd}/output/{imgs_type}"
@@ -25,10 +25,15 @@ class ImagesControllers:
             # Return 404 response if the directory doesn't exist
             return JSONResponse(
                 status_code=status.HTTP_404_NOT_FOUND,
-                content={"message": f"Images of type '{imgs_type}' don't exist!", "data": "[]"},
+                content={
+                    "message": f"Images of type '{imgs_type}' don't exist!",
+                    "data": "[]",
+                },
             )
 
-        base64_img_list = []  # List to store base64 encoded images and their associated data
+        img_list = (
+            []
+        )  # List to store base64 encoded images and their associated data
         for root, directories, files in os.walk(f_path):
             # Sort directories by modification time in reverse order
             sorted_directories = sorted(
@@ -38,7 +43,7 @@ class ImagesControllers:
             )
             for sub_dir in sorted_directories:
                 as_path = os.path.join(root, sub_dir)
-                sub_dir_data = {"sub_dir_images": [],"date":sub_dir}
+                sub_dir_data = {"sub_dir_images": [], "date": sub_dir}
                 # Get all files in the sub-directory
                 all_files = [
                     f
@@ -53,26 +58,28 @@ class ImagesControllers:
                     b64_img = ""
                     # sub_dirs_dict = {}
                     if img_path.endswith(".png"):
-                        # Convert PNG image to base64
-                        b64_img = common_utils.byte_img_to_base64(
-                            byte_img=None, img_path=img_path
-                        )
-                        # Append base64 encoded image to the list
-                        img_data = {"img_data": {}, "enc_img": b64_img}
+                        if links:
+                            # Append image path instead of base64 if links=True
+                            img_link= f"{imgs_type}/{sub_dir}/{img}"
+                            img_data = {"img_data": {}, "img_link":img_link}
+                        else:
+                            # Convert PNG image to base64
+                            b64_img = common_utils.byte_img_to_base64(
+                                byte_img=None, img_path=img_path
+                            )
+                            # Append base64 encoded image
+                            img_data = {"img_data": {}, "enc_img": b64_img}
                         sub_dir_data["sub_dir_images"].append(img_data)
 
                     elif img_path.endswith(".json"):
                         # Load JSON data from the file
-                        with open(img_path) as f:
+                        with open(img_path, encoding="utf-8") as f:
                             img_data = json.load(f)
                             # Add the loaded data to the previously appended image
                             sub_dir_data["sub_dir_images"][-1]["img_data"] = img_data
 
-                base64_img_list.append(sub_dir_data)
+                img_list.append(sub_dir_data)
                 # print(sub_dir_data)
 
-        # Convert the list of base64 encoded images to JSON format
         
-        json_img_list = json.dumps({"img_list": base64_img_list})
-        # Return 200 response with the JSON data
-        return JSONResponse(status_code=status.HTTP_200_OK, content=json_img_list)
+        return img_list
