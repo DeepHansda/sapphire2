@@ -19,7 +19,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.requests import Request
 
 
-templates=Jinja2Templates(directory="./templates")
+templates = Jinja2Templates(directory="./templates")
 
 
 class Utils:
@@ -74,15 +74,45 @@ class Utils:
         generator = torch.Generator(device=device).manual_seed(seed)
         return seed, generator
 
-    def exception_handler(self, func: Callable[..., Any]) -> Callable:
-        async def wrapper(*args, **kwargs):
+    def try_catch_wrapper(self, func):
+        async def wrapper(request: Request, *args, **kwargs):
             try:
-                return await func(*args, **kwargs)
+                return await func(request, *args, **kwargs)
+            except HTTPException as http_exc:
+                # Handle HTTPException differently if needed
+                error_message = str(
+                    http_exc.detail
+                )  # Get the HTTPException detail message
+                print(f"HTTP Error: {error_message}")
+
+                # Check if it's an HTMX request
+                if request.headers.get("HX-Request"):
+                    # Return a partial HTML response for HTMX to inject
+                    return templates.TemplateResponse(
+                        "htmx_error.html",
+                        {"request": request, "error": error_message},
+                        status_code=http_exc.status_code,
+                    )
+                else:
+                    # Re-raise the HTTPException to be handled by FastAPI's default exception handler
+                    raise http_exc
+
             except Exception as e:
-                # Return the exception as a response
-                raise HTTPException(
-                    status_code=status.HTTP_404_NOT_FOUND, detail=str(e)
-                )
+                # Handle all other exceptions (non-HTTPException)
+                error_message = str(e)
+                print(f"Error: {error_message}")
+
+                # Check if it's an HTMX request
+                if request.headers.get("HX-Request"):
+                    # Return a partial HTML response for HTMX to inject
+                    return templates.TemplateResponse(
+                        "htmx_error.html",
+                        {"request": request, "error": error_message},
+                        status_code=500,
+                    )
+                else:
+                    # Raise a general HTTP 500 error for non-HTMX requests
+                    raise HTTPException(status_code=500, detail=error_message)
 
         return wrapper
 
@@ -103,7 +133,7 @@ class Utils:
     async def download_with_wget(self, url: str, output_path: str):
         try:
             # Command to execute wget with the provided URL and output path
-           
+
             command = [
                 "wget",
                 "-c",
@@ -161,7 +191,11 @@ class Utils:
         return byte_img_base64
 
     def handle_generated_images(
-        self, images: List[Image.Image],metaData:{str:any}, base64_for_img: bool, tag: str
+        self,
+        images: List[Image.Image],
+        metaData: {str: any},
+        base64_for_img: bool,
+        tag: str,
     ) -> Any:
         today = date.today()
         if tag:
@@ -174,7 +208,7 @@ class Utils:
         file_count_in_output = len(os.listdir(output_path))
         print(images)
         for index, image in enumerate(images):
-            index = int(file_count_in_output/2) + index
+            index = int(file_count_in_output / 2) + index
             file_name = f"{OUTPUT}_{index}_{today}"
             if metaData is not None:
                 with open(f"{output_path}/{file_name}.json", "wb") as metaJson:
@@ -197,10 +231,12 @@ class Utils:
 
             if base64_for_img is True:
                 byte_imgs_list_base64 = []
-                byte_img_base64 = self.byte_img_to_base64(byte_img=byte_img,img_path=None)
+                byte_img_base64 = self.byte_img_to_base64(
+                    byte_img=byte_img, img_path=None
+                )
 
                 for b_i in byte_imgs_list:
-                    b_i_base64 = self.byte_img_to_base64(byte_img=b_i,img_path=None)
+                    b_i_base64 = self.byte_img_to_base64(byte_img=b_i, img_path=None)
                     byte_imgs_list_base64.append(b_i_base64)
 
                 return json.dumps(
@@ -212,76 +248,8 @@ class Utils:
             result_images = images[0]
             byte_img = self.get_byte_img(result_images)
             if base64_for_img is True:
-                byte_img_base64 = self.byte_img_to_base64(byte_img=byte_img,img_path=None)
+                byte_img_base64 = self.byte_img_to_base64(
+                    byte_img=byte_img, img_path=None
+                )
                 return byte_img_base64
             return byte_img
-
-    async def getImagesByType(self, imgs_type: str):
-        # Define the file path
-        
-        f_path = f"{cwd}/output/{imgs_type}"
-
-        # Check if the directory exists
-        if not os.path.exists(f_path):
-            # Return 404 response if the directory doesn't exist
-            err_msg = {"message": f"Images of type '{imgs_type}' don't exist!", "img_list": "[]"}
-            return err_msg
-
-        base64_img_list = []  # List to store base64 encoded images and their associated data
-        for root, directories, files in os.walk(f_path):
-            # Sort directories by modification time in reverse order
-            sorted_directories = sorted(
-                directories,
-                key=lambda d: os.path.getmtime(os.path.join(root, d)),
-                reverse=True,
-            )
-            for sub_dir in sorted_directories:
-                as_path = os.path.join(root, sub_dir)
-                sub_dir_data = {"sub_dir_images": [],"date":sub_dir}
-                # Get all files in the sub-directory
-                all_files = [
-                    f
-                    for f in os.listdir(as_path)
-                    if os.path.isfile(os.path.join(as_path, f))
-                ]
-                # Sort files in reverse order
-                sorted_files = sorted(all_files, reverse=True)
-                for img in sorted_files:
-                    img_path = os.path.join(as_path, img)
-                    img_data = {}
-                    b64_img = ""
-                    # sub_dirs_dict = {}
-                    if img_path.endswith(".png"):
-                        # Convert PNG image to base64
-                        b64_img = self.byte_img_to_base64(
-                            byte_img=None, img_path=img_path
-                        )
-                        # Append base64 encoded image to the list
-                        img_data = {"img_data": {}, "enc_img": b64_img}
-                        sub_dir_data["sub_dir_images"].append(img_data)
-
-                    elif img_path.endswith(".json"):
-                        # Load JSON data from the file
-                        with open(img_path) as f:
-                            img_data = json.load(f)
-                            # Add the loaded data to the previously appended image
-                            sub_dir_data["sub_dir_images"][-1]["img_data"] = img_data
-
-                base64_img_list.append(sub_dir_data)
-                # print(sub_dir_data)
-
-        # Convert the list of base64 encoded images to JSON format
-        
-        
-        json_img_list = json.dumps({"img_list": base64_img_list})
-
-        return json_img_list
-        # Return 200 response with the JSON data
-        return JSONResponse(status_code=status.HTTP_200_OK, content=json_img_list)
-    
-
-    def render_imgs_gallery(request:Request):
-        return templates.TemplateResponse("partials/imageGallery.html",{"request":request,})
-
-
-   

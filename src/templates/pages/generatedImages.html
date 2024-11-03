@@ -16,6 +16,10 @@
       >Img2Img</a
     >
   </div>
+  {% if isLoading == False %}
   {% include "partials/imageGallery.html" %}
+  {%else%}
+  <span class="loading loading-dots loading-md"></span>
+  {%endif%}
 </div>
 {% endblock generated_images %}

@@ -1,6 +1,6 @@
 from common.Folder_Paths import cwd
 from common.const import OUTPUT
-from fastapi import Response, status
+from fastapi import Response, status, HTTPException
 from fastapi.responses import JSONResponse
 import os, json
 
@@ -23,17 +23,15 @@ class ImagesControllers:
         # Check if the directory exists
         if not os.path.exists(f_path):
             # Return 404 response if the directory doesn't exist
-            return JSONResponse(
+            raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                content={
+                detail={
                     "message": f"Images of type '{imgs_type}' don't exist!",
                     "data": "[]",
                 },
             )
 
-        img_list = (
-            []
-        )  # List to store base64 encoded images and their associated data
+        img_list = []  # List to store base64 encoded images and their associated data
         for root, directories, files in os.walk(f_path):
             # Sort directories by modification time in reverse order
             sorted_directories = sorted(
@@ -60,8 +58,8 @@ class ImagesControllers:
                     if img_path.endswith(".png"):
                         if links:
                             # Append image path instead of base64 if links=True
-                            img_link= f"{imgs_type}/{sub_dir}/{img}"
-                            img_data = {"img_data": {}, "img_link":img_link}
+                            img_link = f"{imgs_type}/{sub_dir}/{img}"
+                            img_data = {"img_data": {}, "img_link": img_link}
                         else:
                             # Convert PNG image to base64
                             b64_img = common_utils.byte_img_to_base64(
@@ -81,5 +79,4 @@ class ImagesControllers:
                 img_list.append(sub_dir_data)
                 # print(sub_dir_data)
 
-        
         return img_list

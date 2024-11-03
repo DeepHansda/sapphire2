@@ -6,14 +6,14 @@ import logging, os, time
 from common.startup import startUp
 from fastapi.middleware.cors import CORSMiddleware
 from watchfiles import run_process, arun_process, awatch
-from fastapi import FastAPI, status
+from fastapi import FastAPI, status, HTTPException
 from fastapi.requests import Request
 from fastapi.responses import FileResponse, Response
 from pydantic import BaseModel
 from common.PipelineComponents import PipelineComponents
 from fastapi.staticfiles import StaticFiles
 
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 
 from routes.modelsRoutes import models_router
 from routes.text2imgRouter import text2ImgRouter
@@ -83,6 +83,13 @@ app.include_router(images_routes)
 
 @app.get("/")
 async def root(request: Request):
+    return RedirectResponse("/text-to-img")
+
+
+@app.exception_handler(HTTPException)
+async def custom_error_handler(request: Request, exc: HTTPException):
     return templates.TemplateResponse(
-        "base.html", {"request": request, "tabs_links": TABS_LINKS}
+        "pages/error.html",
+        {"request": request, "detail": exc.detail},
+        status_code=exc.status_code,
     )

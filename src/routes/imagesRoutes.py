@@ -13,8 +13,10 @@ import json
 images_routes = APIRouter()
 
 imagesControllers = ImagesControllers()
+utils = Utils()
 
 
+@utils.try_catch_wrapper
 @images_routes.get("/generated-images/{imgs_type}")
 async def get_images_container(request: Request, imgs_type: str):
     res = await imagesControllers.getImagesByType(imgs_type, links=True)
@@ -22,13 +24,19 @@ async def get_images_container(request: Request, imgs_type: str):
 
     return templates.TemplateResponse(
         "pages/generatedImages.html",
-        {"request": request, "tabs_links": TABS_LINKS, "imgs_list": res},
+        {
+            "request": request,
+            "tabs_links": TABS_LINKS,
+            "imgs_list": res,
+            "isLoading": False,
+        },
     )
 
 
+@utils.try_catch_wrapper
 @images_routes.get("/get-images/{imgs_type}")
 async def get_images(imgs_type: str):
-    res = await Utils().getImagesByType(imgs_type)
+    res = await imagesControllers.getImagesByType(imgs_type, links=False)
     parse_data = json.load(res)
     if len(parse_data.img_list) == 0:
         return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content=res)

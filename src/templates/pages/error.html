@@ -1,0 +1,14 @@
+{% extends "base.html"%}{%block error%}
+<div class="bg-lightGlass-50">
+  <div class="error-box">
+    <h1>Something went wrong!</h1>
+    <p>Oops, it looks like there was an error processing your request.</p>
+
+    <!-- Display the exception detail/message -->
+    <p class=""><strong>Error:</strong> {{ detail }}</p>
+
+    <!-- A link to go back to the main page -->
+    <a href="/" class="back-link">Go Back to Home</a>
+  </div>
+</div>
+{%endblock error%}
