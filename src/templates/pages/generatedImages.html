@@ -2,7 +2,7 @@
 <div class="backdrop-blur-2xl">
   <div>{%include "partials/tabBar.html" %}</div>
   <div
-    class="flex gap-6 items-center justify-center my-3 mx-3 bg-darkGlass-100 backdrop-blur-xl max-w-72 p-3 rounded-lg border border-lightGlass-50 shadow-md gen-imgs-links"
+    class="flex gap-6 items-center justify-center my-3 mx-3 bg-darkGlass-100 backdrop-blur-xl max-w-72 p-3 rounded-lg border border-lightGlass-50 shadow-md gen-imgs-links overflow-y-auto"
   >
     {%set path = request.path_params["imgs_type"]%}
     <a
@@ -16,10 +16,13 @@
       >Img2Img</a
     >
   </div>
-  {% if isLoading == False %}
-  {% include "partials/imageGallery.html" %}
-  {%else%}
-  <span class="loading loading-dots loading-md"></span>
-  {%endif%}
+  <div class="overflow-y-auto max-h-[calc(100vh-8.6rem)] scroll-smooth">
+
+    {% if isLoading == False %}
+    {% include "partials/imageGallery.html" %}
+    {%else%}
+    <span class="loading loading-dots loading-md"></span>
+    {%endif%}
+  </div>
 </div>
 {% endblock generated_images %}

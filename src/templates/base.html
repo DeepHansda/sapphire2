@@ -13,15 +13,15 @@
     />
    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/gh/DeepHansda/sapphire2@main/src/static/js/image_preview.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/DeepHansda/sapphire2@main/src/static/js/image_preview.js"></script> -->
     <script
       src="https://unpkg.com/htmx.org@2.0.3"
       integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq"
       crossorigin="anonymous"
     ></script>
     <!-- static paths and links -->
-    <!-- <link rel="'stylesheet" href="{{url_for('static',path='/css/daisyui.css')}}" /> -->
-     <script src="{{url_for('static',path='/js/image_preview.js')}}"></script>
+    <link rel="'stylesheet" href="{{url_for('static',path='/css/daisyui.css')}}" />
+     <script src="{{url_for('static',path='/js/script.js')}}"></script>
     <link
       rel="stylesheet"
       href="{{url_for('static',path='/css/style.css')}}"
@@ -34,7 +34,7 @@
   </head>
 
   <body
-    class="w-full h-screen bg-[url('{{url_for('static',path='/images/bg3.jpg')}}')] bg-cover bg-fixed bg-center"
+    class="w-full h-screen bg-[url('{{url_for('static',path='/images/bg1.jpg')}}')] bg-cover bg-fixed bg-center"
   >
     {% block main_layout %}{% endblock main_layout %}
     {%block generated_images%}{%endblock generated_images%}

@@ -1,9 +1,8 @@
-{% set batch_num_list=[1,2,3,4,5,6,7,8] %} 
-{%set scheduler_list = ["euler",
+{% set batch_num_list=[1,2,3,4,5,6,7,8] %} {%set scheduler_list = ["euler",
 "euler_a", "heun", "lms", "unipc", "dpm_2", "dpm_2_a", "dpmpp_2m", "dpmpp_sde",
 "dpmpp_2m_sde"] %}
 <div
-  class="w-[300px] h-screen overflow-y-auto backdrop-blur-3xl bg-darkGlass-200"
+  class="w-[300px] max-h-[calc(100vh-8rem)] scroll-smooth overflow-y-auto backdrop-blur-3xl bg-darkGlass-200"
 >
   <div class="flex flex-col px-6">
     <div class="">
@@ -16,6 +15,8 @@
         class="input input-bordered w-full max-w-xs"
         name="width"
         id="width"
+        value="512"
+        required
       />
       <input
         type="number"
@@ -23,6 +24,8 @@
         class="input w-full max-w-xs mt-4"
         name="height"
         id="height"
+        value="512"
+        required
       />
     </div>
     <div class="divider"></div>
@@ -32,8 +35,13 @@
           Select Number of Images
         </h2>
       </div>
-      <select class="select w-full max-w-xs" name="batch_size" id="batch_size">
-        <option disabled selected>Select Number of Images</option>
+      <select
+        class="select w-full max-w-xs"
+        name="batch_size"
+        id="batch_size"
+        required
+      >
+        <option disabled selected>1</option>
         {% for num in batch_num_list %}
         <option>{{ num }}</option>
         {% endfor %}
@@ -51,9 +59,10 @@
           type="number"
           step="0.01"
           class="input w-full max-w-xs"
-          placeholder="0.01"
+          placeholder="1.0"
           name="guidance_scale"
           id="guidance_scale"
+          required
         />
       </div>
     </div>
@@ -69,14 +78,41 @@
           type="number"
           step="0.01"
           class="input w-full max-w-xs"
+          placeholder="0.65"
           name="strength"
           id="strength"
+          required
         />
       </div>
     </div>
     {% else %}
     <div class="hidden"></div>
     {% endif %}
+
+    <div class="divider"></div>
+    <div>
+      <div class="my-2">
+        <h2 class="font-semibold text-sm font-[Poppins]">Sampling Steps</h2>
+      </div>
+      <div>
+        {%set defaultVal = 20 %}
+        <input
+          name="steps"
+          type="range"
+          min="1"
+          max="100"
+          value="{{defaultVal}}"
+          class="range range-success range-sm"
+          step="1"
+          onchange="showSliderVal(event)"
+        />
+        <div
+          class="px-2 py-0 text-[Poppins] bg-lightGlass-50 text-sm w-fit rounded-md float-right"
+        >
+          <span id="rangeVal">{{defaultVal}}</span>
+        </div>
+      </div>
+    </div>
 
     <div class="divider"></div>
 
@@ -86,7 +122,12 @@
       </div>
 
       <div>
-        <select class="select w-full max-w-xs" name="scheduler" id="scheduler">
+        <select
+          class="select w-full max-w-xs"
+          name="scheduler"
+          id="scheduler"
+          required
+        >
           <option disabled selected>euler</option>
           {%for scheduler in scheduler_list%}
           <option>{{scheduler}}</option>
@@ -99,9 +140,9 @@
           <input
             type="checkbox"
             class="toggle toggle-success"
-            checked="checked"
             name="use_kerras"
             id="use_kerras"
+            required
           />
         </label>
       </div>
@@ -119,6 +160,7 @@
         value="-1"
         name="seed"
         id="seed"
+        required
       />
       <div class="form-control">
         <label class="label cursor-pointer">

@@ -7,7 +7,7 @@
         <form {% set path="request.url.path" %}
             hx-post="{% if path == '/img-to-img' %} img-to-img/jinja/generate {% else %} text-to-img/jinja/generate {% endif %}"
             hx-swap="outerHTML" hx-target="#generated_result" hx-encoding="multipart/form-data" hx-indicator=".loading">
-            <div class="overflow-scroll">{% block content %} {% endblock content %}</div>
+            <div >{% block content %} {% endblock content %}</div>
         </form>
     </div>
 </div>

@@ -16,7 +16,7 @@ utils = Utils()
 @text2ImgRouter.get("/text-to-img")
 async def text_to_img(request: Request):
     return templates.TemplateResponse(
-        "/pages/text2img.html",
+        "/pages/generate.html",
         {"request": request, "data": DEFAULT_FORM_DATA, "tabs_links": TABS_LINKS},
     )
 

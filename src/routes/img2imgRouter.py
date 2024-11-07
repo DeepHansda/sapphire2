@@ -14,7 +14,7 @@ img2imgControllers = Img2ImgControllers()
 async def img_to_img(request: Request):
     print(request.url.path)
     return templates.TemplateResponse(
-        "/pages/img2img.html",
+        "/pages/generate.html",
         {"request": request, "data": DEFAULT_FORM_DATA, "tabs_links": TABS_LINKS},
     )
 
