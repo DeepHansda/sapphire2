@@ -1,9 +1,9 @@
-# fastapi
-# uvicorn[standard]
-diffusers[torch] 
-# transformers
-# xformers
-# peft
+fastapi
+uvicorn[standard]
+diffusers
+transformers
+xformers
+peft
 # python-dotenv
 python-multipart
 # aiofiles
