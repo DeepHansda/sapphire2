@@ -1,19 +1,29 @@
 <div id="generated_result" class="w-full flex gap-x-6">
-  <div class="grow shadow-md overflow-clip	rounded-md">
+  <div class="grow shadow-md overflow-clip rounded-md">
+    <img class="max-w-full h-fit" alt="" loading="lazy" />
+  </div>
+  <div class="relative shadow-black/5 shadow max-w-sm">
     <img
-      class="max-w-full h-fit"
-      alt=""
+      class="relative z-10 opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large rounded-lg max-w-full preview-img"
       src="data:image/jpeg;base64,{{ resData.enc_img}}"
+      alt=""
+      data-loaded="true"
+      loading="lazy"
+    />
+    <img
+      src="data:image/jpeg;base64,{{ resData.enc_img}}"
+      class="absolute z-0 inset-0 w-full h-full object-cover filter blur-lg scale-105 saturate-150 opacity-30 translate-y-1 rounded-large max-w-full preview-img"
+      alt="NextUI Album Cover"
+      aria-hidden="true"
+      data-loaded="true"
       loading="lazy"
     />
   </div>
 
   <div class="w-9/12">
-
-    <div class="flex flex-wrap gap-4" >
-      {% for key,value in resData.additional_data.items() %}
-      {% include "/partials/imgModal/modalItem.html"%}
-      {% endfor %}
+    <div class="flex flex-wrap gap-4">
+      {% for key,value in resData.additional_data.items() %} {% include
+      "/partials/imgModal/modalItem.html"%} {% endfor %}
     </div>
     <div class="my-8">
       <button class="btn btn-info">Download</button>

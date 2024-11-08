@@ -1,5 +1,5 @@
 <div
-  class="flex justify-between items-center gap-6 border border-lightGlass-50 my-4 p-4 rounded-lg"
+  class="flex justify-between items-center gap-6 border bg-darkGlass-200 backdrop-blur-2xl border-lightGlass-50 my-4 p-4 rounded-lg"
 >
   <label class="form-control w-full max-w-xs">
     <div class="label">
@@ -19,19 +19,21 @@
   <div id="image-preview">
     <h3>Preview:</h3>
 
-    <div class="relative shadow-black/5 shadow-none rounded-large z-50">
+    <div class="relative shadow-black/5 shadow max-w-sm">
       <img
-        id="preview-img"
-        src=""
-        alt="Image Preview"
-        class="relative z-10 shadow-black/5  shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large m-5 preview-img"
-      />
-
-      <img
-        id="preview-img"
-        class="absolute z-0 inset-0 w-full h-full object-cover filter blur-lg scale-105 saturate-150 opacity-30 translate-y-1 rounded-large preview-img"
+        class="relative z-10 opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large rounded-lg max-w-full preview-img"
         src=""
         alt=""
+        data-loaded="true"
+        loading="lazy"
+      />
+      <img
+        src=""
+        class="absolute z-0 inset-0 w-full h-full object-cover filter blur-lg scale-105 saturate-150 opacity-30 translate-y-1 rounded-large max-w-full preview-img"
+        alt="NextUI Album Cover"
+        aria-hidden="true"
+        data-loaded="true"
+        loading="lazy"
       />
     </div>
   </div>

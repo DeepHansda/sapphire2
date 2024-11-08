@@ -2,13 +2,15 @@ function previewImage(event) {
   const fileInput = event.target;
   const preview = document.getElementsByClassName("preview-img");
   const previewContainer = document.getElementById("image-preview");
-
+console.log(preview)
   // Display the selected image in the preview container
   const file = fileInput.files[0];
   if (file) {
     const reader = new FileReader();
     reader.onload = function (e) {
-      preview.src = e.target.result;
+      preview[0].src = e.target.result;
+      preview[1].src = e.target.result;
+
       previewContainer.style.display = "block";
     };
     reader.readAsDataURL(file);
