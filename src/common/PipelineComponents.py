@@ -90,8 +90,8 @@ class PipelineComponents:
         config = self.component_pipeline.scheduler.config
 
         scheduler_classes = {
-            "eular": EulerDiscreteScheduler,
-            "eular_a": EulerAncestralDiscreteScheduler,
+            "euler": EulerDiscreteScheduler,
+            "euler_a": EulerAncestralDiscreteScheduler,
             "heun": HeunDiscreteScheduler,
             "lms": LMSDiscreteScheduler,
             "unipc": UniPCMultistepScheduler,
