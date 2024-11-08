@@ -9,7 +9,12 @@
         hx-trigger="load"
         hx-target="#models-list"
         hx-swap="outerHTML"
+        hx-indicator="#models-loader"
       >
+        <div id="models-loader" class="htmx-indicator">
+          <span class="loading loading-dots loading-lg"></span>
+        </div>
+
         <div id="models-list"></div>
       </div>
     </div>

@@ -8,7 +8,20 @@
       class="w-full max-h-[calc(100vh-10.5rem)] flex-grow px-6 overflow-y-auto scroll-smooth"
     >
       <div class="">{% include "partials/promptBox.html"%}</div>
-      <div id="generated_result" class="my-6">generate some images.</div>
+
+      <div id="gen-loader" class="text-center htmx-indicator">
+        <span class="loading loading-dots loading-lg"></span>
+      </div>
+      <div
+        id="generated_result"
+        class="my-6 border p-4 border-lightGlass-50 rounded-lg"
+      >
+        <div
+          class="text-md font-[Poppins] bg-darkGlass-200 backdrop-blur-lg w-fit p-4 rounded-md border border-lightGlass-50"
+        >
+          <h2>Result Will Show Here.</h2>
+        </div>
+      </div>
     </div>
   </div>
 </div>

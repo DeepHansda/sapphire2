@@ -32,6 +32,10 @@ body{
 }
 .htmx-indicator{
     display:none;
+    animation: none;
+}
+.htmx-indicator::before{
+    display: none;
 }
 .htmx-request .htmx-indicator{
     display:inline;

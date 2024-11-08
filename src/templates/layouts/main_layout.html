@@ -6,7 +6,7 @@
     <div id="main_content">
         <form {% set path="request.url.path" %}
             hx-post="{% if path == '/img-to-img' %} img-to-img/jinja/generate {% else %} text-to-img/jinja/generate {% endif %}"
-            hx-swap="outerHTML" hx-target="#generated_result" hx-encoding="multipart/form-data" hx-indicator=".loading">
+            hx-swap="outerHTML" hx-target="#generated_result" hx-encoding="multipart/form-data" hx-indicator="#gen-loader">
             <div >{% block content %} {% endblock content %}</div>
         </form>
     </div>
