@@ -1,4 +1,4 @@
-<div id="generated_result" class="w-full flex gap-x-6">
+<div id="generated_result" class="w-full flex flex-col lg:flex-row lg:gap-x-6">
   <div class="grow shadow-md overflow-clip rounded-md">
     <img class="max-w-full h-fit" alt="" loading="lazy" />
   </div>
@@ -20,7 +20,7 @@
     />
   </div>
 
-  <div class="w-9/12">
+  <div class="w-full mt-4 lg:w-9/12 lg:mt-0">
     <div class="flex flex-wrap gap-4">
       {% for key,value in resData.additional_data.items() %} {% include
       "/partials/imgModal/modalItem.html"%} {% endfor %}
