@@ -1,9 +1,12 @@
-<div class="navbar">
-  <div class="navbar-start gap-x-6">
+<div class="navbar relative">
+  <div class="absolute top-0 p-2 cursor-pointer md:hidden">
+    <i class='bx bx-sidebar text-3xl' id="open-btn"  onclick="sidebarHandler()"></i>
+  </div>
+  <div class="flex flex-col items-center md:flex-row md:gap-x-6">
     <div>
       <a class="font-[Poppins] font-bold text-xl">Sapphire</a>
     </div>
-    <div>
+    <div class="w-[100vw] overflow-x-auto px-2 box-border">
       <div
         hx-get="get-all-models/jinja"
         hx-trigger="load"

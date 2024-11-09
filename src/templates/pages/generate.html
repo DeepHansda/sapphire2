@@ -1,11 +1,11 @@
 {% extends "layouts/main_layout.html" %}{% block content %}
 
 <div>
-  <div class="flex">
+  <div class="flex 2xl:max-w-[1024px]">
     <div>{% include "partials/sideBar.html" %}</div>
     <div
       id="sub_content"
-      class="w-full max-h-[calc(100vh-10.5rem)] flex-grow px-6 overflow-y-auto scroll-smooth"
+      class="w-full max-h-[calc(100vh-10.5rem)] flex-grow px-6 overflow-y-auto overflow-x-none scroll-smooth"
     >
       <div class="">{% include "partials/promptBox.html"%}</div>
 

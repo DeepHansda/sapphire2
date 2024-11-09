@@ -1,5 +1,5 @@
 <div
-  class="flex justify-between items-center gap-6 border bg-darkGlass-200 backdrop-blur-2xl border-lightGlass-50 my-4 p-4 rounded-lg"
+  class="flex flex-col lg:flex-row justify-between items-center gap-6 border bg-darkGlass-200 backdrop-blur-2xl border-lightGlass-50 my-4 p-4 rounded-lg"
 >
   <label class="form-control w-full max-w-xs">
     <div class="label">
@@ -12,13 +12,11 @@
         accept="image/*"
         id="file-input"
         onchange="previewImage(event)"
-        class="file-input file-input-success file-input-bordered file-input-sm max-w-xs"
+        class="file-input file-input-success file-input-bordered file-input-sm w-full "
       />
     </div>
   </label>
   <div id="image-preview">
-    <h3>Preview:</h3>
-
     <div class="relative shadow-black/5 shadow max-w-sm">
       <img
         class="relative z-10 opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large rounded-lg max-w-full preview-img"
