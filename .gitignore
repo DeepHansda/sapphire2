@@ -2,5 +2,9 @@
 /src/models/
 /src/input/
 /src/output/
+/src/static/fonts
+/src/static/js/htmx.min.js
+/src/static/css/boxicons.min.css
+/src/static/css/daisyui.css
 /src/js_modules/node_modules/
 /**/__pycache__/
