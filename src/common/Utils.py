@@ -6,9 +6,14 @@ import subprocess
 from datetime import date
 from random import randint
 from typing import Any, Callable, List
+import aria2p
+import time
+from tqdm import tqdm
+from urllib.parse import urlparse
+import torch
+
 
 import common.shared as sharedValues
-import torch
 from common.const import OUTPUT
 from common.Folder_Paths import cwd, models_dir
 from common.Types import Text_Emmbed_Type
@@ -130,46 +135,48 @@ class Utils:
                 all_models_dic[d] = models_dic
         return all_models_dic
 
-    async def download_with_wget(self, url: str, output_path: str):
-        try:
-            # Command to execute wget with the provided URL and output path
+    # Function to get the file name from the URL
+    def get_filename_from_url(self, url):
+        path = urlparse(url).path
+        return path.split("/")[-1] if "/" in path else "downloaded_file"
 
-            command = [
-                "wget",
-                "-c",
-                url,
-                "-O",
-                output_path,
-                "--progress=bar",
-                "--show-progress",
-            ]
+    # Function to download file with optional file name and file path
+    async def download_file_with_aria2(self, url, save_as=None, file_path=None):
+        # Use explicit file name if provided; otherwise, capture from the URL
+        file_name = save_as or self.get_filename_from_url(url)
 
-            # Start the subprocess and redirect stderr to stdout
-            process = subprocess.Popen(
-                command,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                universal_newlines=True,
+        # Combine file path and file name if file path is specified
+        if file_path:
+            os.makedirs(
+                file_path, exist_ok=True
+            )  # Create directory if it doesn't exist
+            file_name = os.path.join(file_path, file_name)
+
+        # Connect to aria2c RPC server
+        aria2 = aria2p.API(
+            aria2p.Client(
+                host="http://localhost",
+                port=6800,
+                secret="",  # Add your secret token if any
             )
+        )
 
-            # print(process.stdout.read())
+        # Add the download with the specified or derived file path and name
+        download = aria2.add_uris([url], options={"out": file_name})
 
-            # Read the output stream line by line
-            for line in process.stdout:
-                print(
-                    line.strip()
-                )  # Print the line without trailing newline characters
+        # Track progress with tqdm
+        with tqdm(total=100, desc="Downloading", unit="%", leave=False) as pbar:
+            while not download.is_complete:
+                # Update progress
+                download.update()
+                pbar.n = download.progress
+                pbar.refresh()
+                time.sleep(0.5)  # Adjust as needed
 
-            # Wait for the subprocess to finish
-            return_code = process.wait()
-
-            # Check the return code for errors
-            if return_code != 0:
-                print(
-                    f"An error occurred during the download (return code: {return_code})"
-                )
-        except Exception as e:
-            print(f"An error occurred: {e}")
+        if download.is_complete:
+            print(f"Download completed: {file_name}")
+        else:
+            print("Download failed.")
 
     def generate_grid_size(self, total_number: int) -> (int, int):
 

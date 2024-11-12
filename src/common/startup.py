@@ -28,8 +28,12 @@ async def startUp():
         )
         vae_url = "https://huggingface.co/stabilityai/sd-vae-ft-ema-original/resolve/main/vae-ft-ema-560000-ema-pruned.safetensors"
         vae_output_path = f"{models_dir}/{VAE}/vae-ft-ema-560000-ema-pruned.safetensors"
-        await commonUtils.download_with_wget(checkpoint_url, checkpoint_output_path)
-        await commonUtils.download_with_wget(vae_url, vae_output_path)
+        await commonUtils.download_file_with_aria2(
+            url=checkpoint_url, file_path=checkpoint_output_path
+        )
+        await commonUtils.download_file_with_aria2(
+            url=vae_url, file_path=vae_output_path
+        )
         all_models = commonUtils.get_all_models()
 
     default_checkpoint = {}
