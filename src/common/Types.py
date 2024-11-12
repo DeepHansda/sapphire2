@@ -1,6 +1,6 @@
 from typing import Any
 from fastapi import UploadFile, File, Form
-from pydantic import BaseModel
+from pydantic import BaseModel,ConfigDict
 from dataclasses import dataclass
 
 
@@ -53,5 +53,6 @@ class Text_Emmbed_Type(BaseModel):
 
 
 class Model_Request_Type(BaseModel):
+    model_config  = ConfigDict(protected_namespaces=())
     model_name: str
     model_type: str
