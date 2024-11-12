@@ -23,16 +23,18 @@ async def startUp():
     all_models = commonUtils.get_all_models()
     if CHECKPOINT not in all_models or VAE not in all_models:
         checkpoint_url = "https://huggingface.co/Lykon/DreamShaper/resolve/main/DreamShaper_8_pruned.safetensors"
-        checkpoint_output_path = (
-            f"{models_dir}/{CHECKPOINTS}/DreamShaper_8_pruned.safetensors"
-        )
+        checkpoint_output_path = f"{models_dir}/{CHECKPOINTS}/"
         vae_url = "https://huggingface.co/stabilityai/sd-vae-ft-ema-original/resolve/main/vae-ft-ema-560000-ema-pruned.safetensors"
-        vae_output_path = f"{models_dir}/{VAE}/vae-ft-ema-560000-ema-pruned.safetensors"
+        vae_output_path = f"{models_dir}/{VAE}/"
         await commonUtils.download_file_with_aria2(
-            url=checkpoint_url, file_path=checkpoint_output_path
+            url=checkpoint_url,
+            save_as="DreamShaper_8_pruned.safetensors",
+            file_path=checkpoint_output_path,
         )
         await commonUtils.download_file_with_aria2(
-            url=vae_url, file_path=vae_output_path
+            url=vae_url,
+            save_as="vae-ft-ema-560000-ema-pruned.safetensors",
+            file_path=vae_output_path,
         )
         all_models = commonUtils.get_all_models()
 

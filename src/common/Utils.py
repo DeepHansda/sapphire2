@@ -141,16 +141,19 @@ class Utils:
         return path.split("/")[-1] if "/" in path else "downloaded_file"
 
     # Function to download file with optional file name and file path
+    # Function to download file with optional file name and file path
     async def download_file_with_aria2(self, url, save_as=None, file_path=None):
         # Use explicit file name if provided; otherwise, capture from the URL
         file_name = save_as or self.get_filename_from_url(url)
 
-        # Combine file path and file name if file path is specified
+        # Separate directory and file name for aria2 options
         if file_path:
             os.makedirs(
                 file_path, exist_ok=True
             )  # Create directory if it doesn't exist
-            file_name = os.path.join(file_path, file_name)
+            aria2_options = {"out": file_name, "dir": file_path}
+        else:
+            aria2_options = {"out": file_name}
 
         # Connect to aria2c RPC server
         aria2 = aria2p.API(
@@ -162,7 +165,7 @@ class Utils:
         )
 
         # Add the download with the specified or derived file path and name
-        download = aria2.add_uris([url], options={"out": file_name})
+        download = aria2.add_uris([url], options=aria2_options)
 
         # Track progress with tqdm
         with tqdm(total=100, desc="Downloading", unit="%", leave=False) as pbar:
@@ -174,7 +177,7 @@ class Utils:
                 time.sleep(0.5)  # Adjust as needed
 
         if download.is_complete:
-            print(f"Download completed: {file_name}")
+            print(f"Download completed: {os.path.join(file_path or '', file_name)}")
         else:
             print("Download failed.")
 
