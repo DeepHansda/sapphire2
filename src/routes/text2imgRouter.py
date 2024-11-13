@@ -40,6 +40,16 @@ async def generate_jinja_text_to_img(
         "additional_data": json.loads(parsedData["additional_data"]),
         "date": parsedData["date"],
     }
+    if content["additional_data"]["batch_size"] > 1:
+        return templates.TemplateResponse(
+        "/partials/multiImages/multiImages.html",
+        {
+            "request": request,
+            "isGeneratedResImg": True,
+            "resData": content,
+            "data": DEFAULT_FORM_DATA,
+        },
+    )
     return templates.TemplateResponse(
         "/partials/imageCard.html",
         {

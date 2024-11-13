@@ -257,9 +257,8 @@ class Utils:
                     b_i_base64 = self.byte_img_to_base64(byte_img=b_i, img_path=None)
                     byte_imgs_list_base64.append(b_i_base64)
 
-                return json.dumps(
-                    {"imgs_list": byte_imgs_list_base64, "img": byte_img_base64}
-                )
+                return {"imgs_list": byte_imgs_list_base64, "img": byte_img_base64}
+                
 
             return byte_imgs_list, byte_img
         else:
