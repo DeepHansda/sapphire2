@@ -143,43 +143,51 @@ class Utils:
     # Function to download file with optional file name and file path
     # Function to download file with optional file name and file path
     async def download_file_with_aria2(self, url, save_as=None, file_path=None):
-        # Use explicit file name if provided; otherwise, capture from the URL
+    # Use explicit file name if provided; otherwise, capture from the URL
         file_name = save_as or self.get_filename_from_url(url)
+        file_location = os.path.join(file_path or '', file_name)
+
+        # Check if file already exists to skip download
+        if os.path.exists(file_location):
+            print(f"File already exists at {file_location}. Skipping download.")
+            return file_location
 
         # Separate directory and file name for aria2 options
         if file_path:
-            os.makedirs(
-                file_path, exist_ok=True
-            )  # Create directory if it doesn't exist
+            os.makedirs(file_path, exist_ok=True)  # Create directory if it doesn't exist
             aria2_options = {"out": file_name, "dir": file_path}
         else:
             aria2_options = {"out": file_name}
 
         # Connect to aria2c RPC server
-        aria2 = aria2p.API(
-            aria2p.Client(
-                host="http://localhost",
-                port=6800,
-                secret="",  # Add your secret token if any
+        try:
+            aria2 = aria2p.API(
+                aria2p.Client(
+                    host="http://localhost",
+                    port=6800,
+                    secret="",  # Add your secret token if any
+                )
             )
-        )
 
-        # Add the download with the specified or derived file path and name
-        download = aria2.add_uris([url], options=aria2_options)
+            # Add the download with the specified or derived file path and name
+            download = aria2.add_uris([url], options=aria2_options)
 
-        # Track progress with tqdm
-        with tqdm(total=100, desc="Downloading", unit="%", leave=False) as pbar:
-            while not download.is_complete:
-                # Update progress
-                download.update()
-                pbar.n = download.progress
-                pbar.refresh()
-                time.sleep(0.5)  # Adjust as needed
+            # Track progress with tqdm
+            with tqdm(total=100, desc="Downloading", unit="%", leave=False) as pbar:
+                while not download.is_complete:
+                    # Update progress
+                    download.update()
+                    pbar.n = download.progress
+                    pbar.refresh()
+                    time.sleep(0.5)  # Adjust as needed
 
-        if download.is_complete:
-            print(f"Download completed: {os.path.join(file_path or '', file_name)}")
-        else:
-            print("Download failed.")
+            if download.is_complete:
+                print(f"Download completed: {file_location}")
+            else:
+                print("Download failed.")
+        
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
     def generate_grid_size(self, total_number: int) -> (int, int):
 
