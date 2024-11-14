@@ -1,7 +1,6 @@
 <div>
-    {{resData.enc_img.img_list}}
     <div class="grid md:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-4">
-        {% for enc_img in resData.enc_img.img_list%}
+        {% for enc_img in resData.enc_img.imgs_list%}
         {%set img_data = resData.additional_data%} 
         {% include "partials/imageGallery/image.html"%}
         {%endfor%}
