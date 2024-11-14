@@ -3,7 +3,10 @@
     {%for item in imgs_list%}
     <div class="divider text-sm font-bold">{{item["date"]}}</div>
     <div class="grid md:grid-cols-2 gap-6 lg:grid-cols-4 2xl:grid-cols-4">
-      {%for sub_dir_images in item["sub_dir_images"]%}
+      {%for sub_dir_images in item["sub_dir_images"]%} 
+      {%set img_data = sub_dir_images['img_data'] %} 
+      {%set img_link = url_for('output',path=sub_dir_images['img_link']) %}
+      
       <div>{% include "partials/imageGallery/image.html" %}</div>
       {%endfor%}
     </div>
