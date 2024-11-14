@@ -224,7 +224,7 @@ class Utils:
         if not os.path.exists(output_path):
             os.makedirs(output_path)
         file_count_in_output = len(os.listdir(output_path))
-        print(images)
+        
         for index, image in enumerate(images):
             index = int(file_count_in_output / 2) + index
             file_name = f"{OUTPUT}_{index}_{today}"

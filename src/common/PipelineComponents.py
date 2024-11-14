@@ -54,17 +54,15 @@ class PipelineComponents:
         self.component_pipeline = comp_pipeline
 
     def get_pipeline(self, ues_lora: Optional[bool] = False) -> StableDiffusionPipeline:
-        if ues_lora == True:
+        if ues_lora is True:
 
             lora_path = self.loaded_sharedValues.get(LORA)
-            print(lora_path)
-            # lora = "sapphire/backend/src/models/loras/ghibli_style_offset.safetensors"
+            
             lora_weight_name = lora_path.split("/")[-1]
             lora_apdapter_name = lora_weight_name.split(".")[0]
 
             active_adapters = self.component_pipeline.get_active_adapters()
             if len(active_adapters) > 0 and lora_apdapter_name == active_adapters[0]:
-                print(active_adapters)
                 return self.component_pipeline
 
             # print(lora_weight_name)
@@ -80,8 +78,7 @@ class PipelineComponents:
         else:
             self.component_pipeline.unload_lora_weights()
             self.component_pipeline.unfuse_lora()
-            active_adapters = self.component_pipeline.get_active_adapters()
-            print(active_adapters)
+            
             return self.component_pipeline
 
     def get_scheduler(self, scheduler_name: str, use_kerras: bool = False):

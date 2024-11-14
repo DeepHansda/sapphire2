@@ -50,13 +50,6 @@ class Text2ImgControllers:
         )
         # self.pipeline.scheduler.use_kerras_sigmas = req.use_kerras
         seed, generator = self.diff_utils.seed_handler(req.seed)
-
-        print(seed)
-
-        lora_path = (
-            "/kaggle/working/sapphire/src/models/loras/ghibli_style_offset.safetensors"
-        )
-
         pipeline.scheduler = scheduler
 
         # if req.use_lora is True:

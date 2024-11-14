@@ -10,9 +10,9 @@
         </div>
         {%set selected_name = key if key=="vae" else key[0:-1] %}
         {%set selected_value = all_models_list.selected_models.get(selected_name) %}
-        <select class="select select-bordered" name={{key}}>
+        <select class="select select-bordered" name={{key}} >
           {%for model_name,model_path in value.items()%}
-          <option value={{model_name}} "{% if selected_value == model_path %} selected {% endif %}">{{model_name}}
+          <option value={{model_name}} {% if selected_value == model_path %} selected {% endif %}>{{model_name}}
           </option>
           {%endfor%}
         </select>
