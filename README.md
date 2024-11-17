@@ -2,6 +2,18 @@
 
 A web-based application inspired by Stable Diffusion WebUI, built to simplify AI-based image generation and editing. This project leverages modern web technologies and powerful AI tools to provide an intuitive interface for creating and managing AI-generated content.
 
+## Notebooks
+
+The following Jupyter notebooks are included in the repository for experimentation and further exploration:
+
+### For Kaggle
+1. Click on the following link to open the notebook directly in Kaggle:
+[![Run in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/deephansda/sapphire)
+
+### For Google Colab
+1. Click on the following link to open the notebook directly in Google Colab:
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1uZbUHqhutVMMWtsTO_pnve9naC3jcsfq?usp=sharing)
+
 ## Features
 
 - **Text-to-Image Generation**: Create unique images from text prompts using pre-trained Stable Diffusion models.
@@ -19,19 +31,6 @@ A web-based application inspired by Stable Diffusion WebUI, built to simplify AI
 - **Jinja2**: For rendering dynamic HTML templates.
 - **TailwindCSS**: For creating a modern, responsive UI.
 - **Python**: The primary programming language for the backend and AI logic.
-
-
-## Notebooks
-
-The following Jupyter notebooks are included in the repository for experimentation and further exploration:
-
-### For Kaggle
-1. Click on the following link to open the notebook directly in Kaggle:
-[![Run in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/deephansda/sapphire)
-
-### For Google Colab
-1. Click on the following link to open the notebook directly in Google Colab:
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DeepHansda/VS-Code-Online__code-server__colab__kaggle/blob/main/vs_code_online.ipynb)  
 
 
 ## Installation
