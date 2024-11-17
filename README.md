@@ -8,7 +8,7 @@ The following Jupyter notebooks are included in the repository for experimentati
 
 ### For Kaggle
 1. Click on the following link to open the notebook directly in Kaggle:
-[![Run in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/deephansda/sapphire)
+[![Run in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/code/deephansda/sapphire/edit)
 
 ### For Google Colab
 1. Click on the following link to open the notebook directly in Google Colab:
