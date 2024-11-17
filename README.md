@@ -1,6 +1,6 @@
 # Sapphire inspired By Stable Diffusion WebUI
 
-A web-based application inspired by Stable Diffusion WebUI, built to simplify AI-based image generation and editing. This project leverages modern web technologies and powerful AI tools to provide an intuitive interface for creating and managing AI-generated content.
+This is a personal project inspired by Stable Diffusion WebUI, built to simplify AI-based image generation and editing. This project leverages modern web technologies and powerful AI tools to provide an intuitive interface for creating and managing AI-generated content.
 
 ## Notebooks
 
